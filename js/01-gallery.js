@@ -21,14 +21,15 @@ const imagesList = galleryItemsList.map(element => {
  .join('');
 
  galleryList.insertAdjacentHTML('afterbegin', imagesList);
+ 
 console.log('imagesList :>>', imagesList);
 
 
-// import * as basicLightbox from 'basiclightbox'
+// // import * as basicLightbox from 'basiclightbox'
 
-const instance = imagesList.create(imagesList);
+// const instance = imagesList.create(imagesList);
 
-instance.show()
+// instance.show()
 
 // const galeryItemList = galleryItems;
 // console.log('object :>> ', galeryItemList);
