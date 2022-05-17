@@ -1,7 +1,6 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 const galleryList = document.querySelector('.gallery');
-console.log('galleryList:>> ', galleryList);
 const galleryItemsList = galleryItems;
 
 const imagesList = galleryItemsList.map(element => {
@@ -22,21 +21,35 @@ const imagesList = galleryItemsList.map(element => {
 
  galleryList.insertAdjacentHTML('afterbegin', imagesList);
  
-console.log('imagesList :>>', imagesList);
+ galleryList.addEventListener('click', openModalClick);
+
+ let instance = null;
 
 
-// // import * as basicLightbox from 'basiclightbox'
+ function openModalClick (event) {
+   event.preventDefault()
+   if (event.target.nodeName !== 'IMG'){
+     return;
+   }
+   
+   instance = basicLightbox.create(`<div> 
+   <img src=${event.target.dataset.source}>
+   </div>`,
 
-// const instance = imagesList.create(imagesList);
+ {onShow : ()  =>  {
+   window.addEventListener('keydown', onEscapePress);
+ } ,
 
-// instance.show()
-
-// const galeryItemList = galleryItems;
-// console.log('object :>> ', galeryItemList);
-// const imagesGallery = document.querySelector(".gallery");
-// console.log(imagesGallery);
-
-// const imagesGalleryEl = galleryItems.map({image} => 
-  
-//   console.log(image));
-
+ onClose : ()  =>  { 
+  window.removeEventListener('keydown', onEscapePress);
+ }
+} );
+ instance.show();
+}
+ 
+ function onEscapePress (event) {
+if (event.code === 'Escape'){
+  instance.close();
+}
+ }
+ 
