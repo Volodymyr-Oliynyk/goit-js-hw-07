@@ -1,12 +1,13 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-const galleryList = document.querySelector('.gallery');
+const galleryList = document.querySelector(".gallery");
 const galleryItemsList = galleryItems;
 
-const imagesList = galleryItemsList.map(element => {
-  const {preview, original, description} = element;
+const imagesList = galleryItemsList
+  .map((element) => {
+    const { preview, original, description } = element;
 
-  return `<div class="gallery">
+    return `<div class="gallery">
   <a class="gallery__link" href="${original}">
   <img
   class="gallery__image"
@@ -16,40 +17,41 @@ const imagesList = galleryItemsList.map(element => {
   />
 </a>  
   </div>`;
- })
- .join('');
+  })
+  .join("");
 
- galleryList.insertAdjacentHTML('afterbegin', imagesList);
- 
- galleryList.addEventListener('click', openModalClick);
+galleryList.insertAdjacentHTML("afterbegin", imagesList);
 
- let instance = null;
+galleryList.addEventListener("click", openModalClick);
 
+let instance = null;
 
- function openModalClick (event) {
-   event.preventDefault()
-   if (event.target.nodeName !== 'IMG'){
-     return;
-   }
-   
-   instance = basicLightbox.create(`<div> 
-   <img src=${event.target.dataset.source}>
-   </div>`,
+function openModalClick(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
 
- {onShow : ()  =>  {
-   window.addEventListener('keydown', onEscapePress);
- } ,
+  instance = basicLightbox.create(
+    `<div> 
+    <img src=${event.target.dataset.source}>
+    </div>`,
 
- onClose : ()  =>  { 
-  window.removeEventListener('keydown', onEscapePress);
- }
-} );
- instance.show();
+    {
+      onShow: () => {
+        window.addEventListener("keydown", onEscapePress);
+      },
+
+      onClose: () => {
+        window.removeEventListener("keydown", onEscapePress);
+      },
+    }
+  );
+  instance.show();
 }
- 
- function onEscapePress (event) {
-if (event.code === 'Escape'){
-  instance.close();
+
+function onEscapePress(event) {
+  if (event.code === "Escape") {
+    instance.close();
+  }
 }
- }
- 
